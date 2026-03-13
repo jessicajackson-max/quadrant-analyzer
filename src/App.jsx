@@ -372,9 +372,6 @@ export default function App() {
       `}</style>
 
       <header style={{ padding: "32px 24px 24px", textAlign: "center", borderBottom: "1px solid rgba(255,255,255,.05)", background: "linear-gradient(180deg,rgba(59,130,246,.06) 0%,transparent 100%)" }}>
-        <div style={{ display: "inline-flex", gap: 10, background: "rgba(59,130,246,.1)", borderRadius: 100, padding: "6px 16px", marginBottom: 12, fontSize: 11, fontWeight: 500, color: "#93c5fd", border: "1px solid rgba(59,130,246,.18)" }}>
-          Based on "Which Skills Matter Now?" — aiEDU × Burning Glass Institute • Learning science via Digital Promise LVP
-        </div>
         <h1 style={{ fontSize: "clamp(24px,5vw,42px)", fontWeight: 800, background: "linear-gradient(135deg,#e2e8f0,#93c5fd,#c4b5fd)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", lineHeight: 1.1, marginBottom: 8 }}>
           AI Skill Quadrant Analyzer
         </h1>
