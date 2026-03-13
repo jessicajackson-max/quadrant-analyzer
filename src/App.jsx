@@ -38,6 +38,48 @@ const Q = {
   streamline: { n: "Streamline", i: "⏩", c: "#f97316", d: "AI handles reliably — embed in higher-order work, reclaim time" },
 };
 
+const AIEDU_S = {
+  "S-1A": { label: "S-1A · Define & Identify AI",      color: "#00D9D3" },
+  "S-1B": { label: "S-1B · Safe & Effective AI Use",   color: "#00D9D3" },
+  "S-1C": { label: "S-1C · Core Content Knowledge",    color: "#00D9D3" },
+  "S-2A": { label: "S-2A · Responsible AI Use",        color: "#F5501C" },
+  "S-2B": { label: "S-2B · Address AI Biases",         color: "#F5501C" },
+  "S-2C": { label: "S-2C · Examine AI Outputs",        color: "#F5501C" },
+  "S-3A": { label: "S-3A · Emotional Intelligence",    color: "#DBFF00" },
+  "S-3B": { label: "S-3B · Creativity & Interdiscip.", color: "#DBFF00" },
+  "S-3C": { label: "S-3C · Life-long Learning",        color: "#DBFF00" },
+};
+
+const QUADRANT_AIEDU = {
+  anchor:     { use_s: ["S-1B","S-2A"],                       avoid_s: ["S-3A","S-3B","S-3C"] },
+  deepen:     { use_s: ["S-1B","S-2A","S-2C","S-3B"],         avoid_s: ["S-3A","S-3B"] },
+  transform:  { use_s: ["S-1B","S-2A","S-2C","S-3B","S-3C"],  avoid_s: ["S-3B","S-3C"] },
+  streamline: { use_s: ["S-1B","S-2C"],                       avoid_s: ["S-2A","S-2B"] },
+};
+
+const GRADE_CONTEXT = {
+  anchor: {
+    "K-5":  { use: "K–5: AI is teacher-modeled only. Show AI outputs to spark questions and compare with human work — never for independent student use. Builds foundational AI awareness.", avoid: "K–5: Protect unmediated, hands-on experience. These foundational skills cannot be shortcut. Prioritize concrete, embodied learning free from AI mediation." },
+    "6-8":  { use: "6–8: After students complete work independently, compare their process to AI output — what did AI miss or misrepresent? Develops Domain 2 critical evaluation skills.", avoid: "6–8: AI use here bypasses the critical thinking development central to this grade band's Domain 2 competencies. Protect the productive struggle." },
+    "9-12": { use: "9–12: Students may deliberately analyze AI output as a foil — using it to articulate and defend their own reasoning and name their human advantage (Domain 3).", avoid: "9–12: These irreducibly human capabilities define competitive advantage in an AI-augmented workforce. Protecting them is essential career preparation." },
+  },
+  deepen: {
+    "K-5":  { use: "K–5: Introduce simple AI tools with teacher guidance to spark curiosity. Focus on observing AI, not independent use. Builds foundational AI awareness (Domain 1).", avoid: "K–5: Core conceptual understanding must be built before AI can meaningfully support it. Protect foundational concept-building above all (S-1C)." },
+    "6-8":  { use: "6–8: Students use AI as a 'what if' thinking partner — then critically evaluate AI's reasoning, not just its answer. Builds Domain 2 critical thinking skills.", avoid: "6–8: AI shortcuts here prevent the deep conceptual understanding students need to effectively direct AI at higher grade bands (S-2A, Domain 2)." },
+    "9-12": { use: "9–12: Students direct AI to surface alternative perspectives, then evaluate, synthesize, and form independent judgment — exercising the full human advantage (Domain 3).", avoid: "9–12: Protect the interpretive leaps and creative insights that distinguish human understanding from AI pattern-matching (S-3B, S-3C)." },
+  },
+  transform: {
+    "K-5":  { use: "K–5: Teacher demonstrates human-AI workflows while students observe and discuss. Build the mental model that humans direct AI — not the reverse (Domain 1: S-1B).", avoid: "K–5: Students need to develop their own thinking processes before directing AI. Protect independent problem-solving development (S-1C)." },
+    "6-8":  { use: "6–8: Students experiment with AI tools, compare outputs, and identify when AI helps vs. misses — building the critical evaluation skills needed for 9–12 (S-2C).", avoid: "6–8: Even in Transform skills, students must originate ideas before AI expands them. Protect the genesis of student thinking (S-2A, Domain 2)." },
+    "9-12": { use: "9–12: Students act as directors and editors — strategically deploying AI, evaluating outputs critically, and developing metacognitive AI workflows (S-3B, S-3C).", avoid: "9–12: Protect the strategic judgment, ethical reasoning, and creative direction that define the human role in AI collaboration (S-3A, Domain 3)." },
+  },
+  streamline: {
+    "K-5":  { use: "K–5: Introduce basic AI tools with teacher modeling for mechanical tasks. Help students notice what AI is doing and why, building foundational AI literacy (Domain 1).", avoid: "K–5: Build enough foundational understanding for students to recognize AI errors before relying on AI tools independently (S-1A, S-1B)." },
+    "6-8":  { use: "6–8: Students use AI for efficiency — then critically verify: Is this accurate? Is AI the right tool here? Builds productive skepticism (S-2C, S-2B, Domain 2).", avoid: "6–8: Maintain sufficient practice in foundational skills so students can catch AI errors and know when to override AI judgment (S-2A)." },
+    "9-12": { use: "9–12: Students deploy AI for routine tasks and redirect reclaimed time to higher-order judgment — modeling professional AI-integrated practice (S-3C, Domain 3).", avoid: "9–12: Maintain foundational fluency to audit AI outputs and exercise human judgment when context demands it (S-3A, E-2B)." },
+  },
+};
+
 function cq(a, g) {
   if (a < 0.35 && g >= 0.45) return "deepen";
   if (a >= 0.35 && g >= 0.45) return "transform";
@@ -334,6 +376,7 @@ function analyze(text) {
 
 export default function App() {
   const [input, setInput] = useState("");
+  const [gradeLevel, setGradeLevel] = useState("9-12");
   const [loading, setLoading] = useState(false);
   const [r, setR] = useState(null);
   const [selQ, setSelQ] = useState(null);
@@ -386,7 +429,32 @@ export default function App() {
           <textarea value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => { if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) go(); }}
             placeholder="e.g., Write arguments to support claims in an analysis of substantive topics or texts, using valid reasoning and relevant evidence."
             rows={3} style={{ width: "100%", background: "rgba(0,0,0,.3)", border: "1px solid rgba(255,255,255,.1)", borderRadius: 12, padding: "12px 14px", fontSize: 15, fontFamily: "inherit", color: "#e2e8f0", lineHeight: 1.6, resize: "vertical" }} />
-          <div style={{ display: "flex", alignItems: "center", gap: 12, marginTop: 12 }}>
+          {/* Grade Band Selector */}
+          <div style={{ marginTop: 12, display: "flex", alignItems: "center", flexWrap: "wrap", gap: 8 }}>
+            <span style={{ fontSize: 11, fontWeight: 700, color: "#93c5fd", textTransform: "uppercase", letterSpacing: ".06em" }}>Grade Band</span>
+            {[
+              { val: "K-5",  label: "K–5"  },
+              { val: "6-8",  label: "6–8"  },
+              { val: "9-12", label: "9–12" },
+            ].map(({ val, label }) => {
+              const on = gradeLevel === val;
+              return (
+                <button key={val} onClick={() => setGradeLevel(val)}
+                  style={{ padding: "5px 14px", borderRadius: 8, border: `1px solid ${on ? "#3b82f6" : "rgba(255,255,255,.1)"}`,
+                    background: on ? "rgba(59,130,246,.18)" : "rgba(255,255,255,.03)",
+                    color: on ? "#93c5fd" : "#94a3b8", fontSize: 13, fontWeight: on ? 700 : 400,
+                    cursor: "pointer", fontFamily: "inherit", transition: "all .15s" }}>
+                  {label}
+                </button>
+              );
+            })}
+            <span style={{ fontSize: 11, color: "#6b7280", fontStyle: "italic" }}>
+              {gradeLevel === "K-5"  ? "aiEDU Domain 1 — Know Your Basics" :
+               gradeLevel === "6-8"  ? "aiEDU Domain 2 — Be a Critical Thinker" :
+                                       "aiEDU Domain 3 — Lead with Human Advantage"}
+            </span>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 12, marginTop: 10 }}>
             <button className="sh" onClick={go} disabled={loading || !input.trim()}
               style={{ padding: "12px 28px", borderRadius: 12, border: "none", color: "white", fontSize: 15, fontWeight: 700, cursor: loading ? "wait" : "pointer", opacity: loading || !input.trim() ? .45 : 1, fontFamily: "inherit" }}>
               {loading ? <span style={{ display: "flex", alignItems: "center", gap: 8 }}><span style={{ width: 16, height: 16, border: "2px solid rgba(255,255,255,.3)", borderTopColor: "white", borderRadius: "50%", animation: "spin .7s linear infinite", display: "inline-block" }} />Analyzing...</span> : "Analyze Standard"}
@@ -474,15 +542,52 @@ export default function App() {
                         </div>
                       )}
                     </div>
+                    {/* aiEDU Framework Banner */}
+                    <div style={{ background: "rgba(34,34,68,.55)", borderRadius: 10, padding: "7px 12px", marginBottom: 8, border: "1px solid rgba(0,217,211,.2)", display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+                      <span style={{ fontSize: 9, color: "#00D9D3", textTransform: "uppercase", letterSpacing: ".08em" }}>
+                        aiEDU AI Readiness Framework v2.0 •&nbsp;
+                        {gradeLevel === "K-5"  ? "Domain 1: Know Your Basics (K–5)"  :
+                         gradeLevel === "6-8"  ? "Domain 2: Be a Critical Thinker (6–8)" :
+                                                 "Domain 3: Lead with Human Advantage (9–12)"}
+                      </span>
+                      <a href="https://www.aiedu.org/ai-readiness-framework" target="_blank" rel="noopener noreferrer"
+                        style={{ fontSize: 9, color: "#00D9D3", textDecoration: "none", border: "1px solid rgba(0,217,211,.3)", borderRadius: 4, padding: "1px 6px", opacity: 0.8 }}>
+                        aiedu.org ↗
+                      </a>
+                    </div>
                     {/* AI Guidance */}
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
                       <div style={{ background: "rgba(34,197,94,.06)", borderRadius: 10, padding: "10px 12px", border: "1px solid rgba(34,197,94,.12)" }}>
-                        <div style={{ fontSize: 10, fontWeight: 700, color: "#86efac", marginBottom: 3 }}>✅ WHERE AI ENHANCES</div>
-                        <p style={{ fontSize: 12, color: "#a7f3d0", lineHeight: 1.55 }}>{s.ai.use}</p>
+                        <div style={{ fontSize: 10, fontWeight: 700, color: "#86efac", marginBottom: 6 }}>✅ WHERE AI ENHANCES</div>
+                        <p style={{ fontSize: 12, color: "#a7f3d0", lineHeight: 1.55, marginBottom: 8 }}>{s.ai.use}</p>
+                        {GRADE_CONTEXT[s.quadrant]?.[gradeLevel]?.use && (
+                          <p style={{ fontSize: 10, color: "#86efac", lineHeight: 1.5, marginBottom: 8, fontStyle: "italic", borderTop: "1px solid rgba(34,197,94,.15)", paddingTop: 7, opacity: 0.9 }}>
+                            {GRADE_CONTEXT[s.quadrant][gradeLevel].use}
+                          </p>
+                        )}
+                        <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
+                          {(QUADRANT_AIEDU[s.quadrant]?.use_s || []).map(tag => (
+                            <span key={tag} style={{ fontSize: 9, padding: "2px 8px", borderRadius: 100, background: `${AIEDU_S[tag].color}12`, color: AIEDU_S[tag].color, border: `1px solid ${AIEDU_S[tag].color}40`, fontWeight: 600, whiteSpace: "nowrap" }}>
+                              {AIEDU_S[tag].label}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                       <div style={{ background: "rgba(239,68,68,.06)", borderRadius: 10, padding: "10px 12px", border: "1px solid rgba(239,68,68,.12)" }}>
-                        <div style={{ fontSize: 10, fontWeight: 700, color: "#fca5a5", marginBottom: 3 }}>🚫 WHERE AI SHOULD NOT BE USED</div>
-                        <p style={{ fontSize: 12, color: "#fecaca", lineHeight: 1.55 }}>{s.ai.avoid}</p>
+                        <div style={{ fontSize: 10, fontWeight: 700, color: "#fca5a5", marginBottom: 6 }}>🚫 WHERE AI SHOULD NOT BE USED</div>
+                        <p style={{ fontSize: 12, color: "#fecaca", lineHeight: 1.55, marginBottom: 8 }}>{s.ai.avoid}</p>
+                        {GRADE_CONTEXT[s.quadrant]?.[gradeLevel]?.avoid && (
+                          <p style={{ fontSize: 10, color: "#fca5a5", lineHeight: 1.5, marginBottom: 8, fontStyle: "italic", borderTop: "1px solid rgba(239,68,68,.15)", paddingTop: 7, opacity: 0.9 }}>
+                            {GRADE_CONTEXT[s.quadrant][gradeLevel].avoid}
+                          </p>
+                        )}
+                        <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
+                          {(QUADRANT_AIEDU[s.quadrant]?.avoid_s || []).map(tag => (
+                            <span key={tag} style={{ fontSize: 9, padding: "2px 8px", borderRadius: 100, background: `${AIEDU_S[tag].color}12`, color: AIEDU_S[tag].color, border: `1px solid ${AIEDU_S[tag].color}40`, fontWeight: 600, whiteSpace: "nowrap" }}>
+                              {AIEDU_S[tag].label}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
