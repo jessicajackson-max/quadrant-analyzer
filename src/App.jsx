@@ -594,7 +594,7 @@ export default function App() {
       )}
 
       <footer style={{ textAlign: "center", padding: "18px", fontSize: 10, color: "#374151", borderTop: "1px solid rgba(255,255,255,.03)" }}>
-        Framework: "Which Skills Matter Now?" (Feb 2026) — aiEDU × The Burning Glass Institute • Learning science: Digital Promise Learner Variability Project
+        Framework: "Which Skills Matter Now?" (Feb 2026) — aiEDU × The Burning Glass Institute
       </footer>
     </div>
   );
