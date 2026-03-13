@@ -80,6 +80,129 @@ const GRADE_CONTEXT = {
   },
 };
 
+// ─── Curated standards database (CCSS, NGSS, NCSS/C3, ISTE) ─────────────────
+const STANDARDS_DB = [
+  // ─ Common Core ELA ────────────────────────────────────────────────────────
+  {code:"CCSS.ELA-LITERACY.CCRA.R.1",fw:"CCSS ELA",fc:"#3b82f6",subj:"ELA",
+   text:"Read closely to determine what the text says explicitly and to make logical inferences from it; cite specific textual evidence to support conclusions drawn from the text.",
+   kw:["read","text","comprehend","literary","inference","interpret","cite","evidence","textual","close"]},
+  {code:"CCSS.ELA-LITERACY.CCRA.R.6",fw:"CCSS ELA",fc:"#3b82f6",subj:"ELA",
+   text:"Assess how point of view or purpose shapes the content and style of a text.",
+   kw:["point of view","purpose","perspective","author","rhetoric","bias","style","motive","intent"]},
+  {code:"CCSS.ELA-LITERACY.CCRA.R.8",fw:"CCSS ELA",fc:"#3b82f6",subj:"ELA",
+   text:"Delineate and evaluate the argument and specific claims in a text, including the validity of the reasoning and the relevance and sufficiency of the evidence.",
+   kw:["argument","claim","evidence","evaluate","reasoning","validity","credib","delineate","sufficiency"]},
+  {code:"CCSS.ELA-LITERACY.CCRA.W.1",fw:"CCSS ELA",fc:"#3b82f6",subj:"ELA",
+   text:"Write arguments to support claims in an analysis of substantive topics or texts, using valid reasoning and relevant and sufficient evidence.",
+   kw:["write","argument","claim","evidence","essay","persuasive","analytic","thesis","opinion","justify"]},
+  {code:"CCSS.ELA-LITERACY.CCRA.W.2",fw:"CCSS ELA",fc:"#3b82f6",subj:"ELA",
+   text:"Write informative/explanatory texts to examine and convey complex ideas and information clearly and accurately through effective selection, organization, and analysis of content.",
+   kw:["inform","explain","expository","convey","organize","write","report","clarity","explanatory"]},
+  {code:"CCSS.ELA-LITERACY.CCRA.W.7",fw:"CCSS ELA",fc:"#3b82f6",subj:"ELA",
+   text:"Conduct short as well as more sustained research projects based on focused questions, demonstrating understanding of the subject under investigation.",
+   kw:["research","inquiry","investigate","question","source","project","study","gather"]},
+  {code:"CCSS.ELA-LITERACY.CCRA.SL.1",fw:"CCSS ELA",fc:"#3b82f6",subj:"ELA",
+   text:"Prepare for and participate effectively in a range of conversations and collaborations with diverse partners, building on others' ideas and expressing their own clearly and persuasively.",
+   kw:["discuss","dialogue","collaborat","conversation","listen","speak","partner","seminar","debate"]},
+  {code:"CCSS.ELA-LITERACY.CCRA.SL.4",fw:"CCSS ELA",fc:"#3b82f6",subj:"ELA",
+   text:"Present information, findings, and supporting evidence so that listeners can follow the line of reasoning; organization and style appropriate to task, purpose, and audience.",
+   kw:["present","oral","speech","audience","communicate","verbal","deliver","finding","speak"]},
+  {code:"CCSS.ELA-LITERACY.CCRA.L.1",fw:"CCSS ELA",fc:"#3b82f6",subj:"ELA",
+   text:"Demonstrate command of the conventions of standard English grammar and usage when writing or speaking.",
+   kw:["grammar","convention","syntax","usage","mechanic","punctuation","spelling","language","english"]},
+  {code:"CCSS.ELA-LITERACY.CCRA.L.6",fw:"CCSS ELA",fc:"#3b82f6",subj:"ELA",
+   text:"Acquire and use accurately a range of general academic and domain-specific words and phrases sufficient for reading, writing, speaking, and listening.",
+   kw:["vocabulary","word","lexic","domain","academic","terminolog","meaning","phrase"]},
+  // ─ Common Core Math ────────────────────────────────────────────────────────
+  {code:"CCSS.MATH.PRACTICE.MP1",fw:"CCSS Math",fc:"#8b5cf6",subj:"Mathematics",
+   text:"Make sense of problems and persevere in solving them. Explain the meaning of a problem and look for entry points; monitor and evaluate progress and change course if necessary.",
+   kw:["problem","solve","persevere","approach","strategy","mathematical","plan","sense","make sense"]},
+  {code:"CCSS.MATH.PRACTICE.MP3",fw:"CCSS Math",fc:"#8b5cf6",subj:"Mathematics",
+   text:"Construct viable arguments and critique the reasoning of others using definitions, assumptions, and previously established results.",
+   kw:["argument","reason","justify","critique","proof","logic","explain","math","viable"]},
+  {code:"CCSS.MATH.PRACTICE.MP4",fw:"CCSS Math",fc:"#8b5cf6",subj:"Mathematics",
+   text:"Model with mathematics — apply mathematics to solve problems arising in everyday life, society, and the workplace; interpret mathematical results in the context of the situation.",
+   kw:["model","real-world","application","quantitative","equation","function","formula","represent","contextu"]},
+  {code:"CCSS.MATH.PRACTICE.MP6",fw:"CCSS Math",fc:"#8b5cf6",subj:"Mathematics",
+   text:"Attend to precision — communicate precisely to others, use clear definitions, specify units of measure, and calculate accurately and efficiently.",
+   kw:["precision","accurate","exact","notation","calculat","fluency","convention","unit","precise"]},
+  {code:"CCSS.MATH.CONTENT.HSA-REI.C.6",fw:"CCSS Math",fc:"#8b5cf6",subj:"Mathematics",
+   text:"Solve systems of linear equations exactly and approximately, focusing on pairs of linear equations in two variables.",
+   kw:["system","linear","equation","solve","algebra","variable","simultaneous","system of equations"]},
+  {code:"CCSS.MATH.CONTENT.HSS-ID.B.6",fw:"CCSS Math",fc:"#8b5cf6",subj:"Mathematics",
+   text:"Represent data on two quantitative variables on a scatter plot, and describe how the variables are related. Fit a function to the data.",
+   kw:["data","scatter","statistic","correlation","regression","variable","graph","bivariate","association"]},
+  {code:"CCSS.MATH.CONTENT.HSF-LE.A.1",fw:"CCSS Math",fc:"#8b5cf6",subj:"Mathematics",
+   text:"Distinguish between situations that can be modeled with linear functions and with exponential functions.",
+   kw:["function","linear","exponential","model","growth","decay","change","pattern","distinguish"]},
+  {code:"CCSS.MATH.CONTENT.HSS-IC.B.6",fw:"CCSS Math",fc:"#8b5cf6",subj:"Mathematics",
+   text:"Evaluate reports based on data — identify possible sources of bias or error in data collection, and whether stated conclusions follow from the data.",
+   kw:["statistic","data","probability","evaluate","infer","bias","sample","random","conclude","report"]},
+  // ─ NGSS ────────────────────────────────────────────────────────────────────
+  {code:"NGSS SEP-1",fw:"NGSS",fc:"#10b981",subj:"Science",
+   text:"Science & Engineering Practice 1 — Asking Questions: ask questions that arise from careful observation of phenomena or examination of models to clarify and/or seek additional information.",
+   kw:["question","inquir","observe","phenomena","wonder","formulate","define","problem","scientific"]},
+  {code:"NGSS SEP-3",fw:"NGSS",fc:"#10b981",subj:"Science",
+   text:"Science & Engineering Practice 3 — Planning and Carrying Out Investigations: plan and conduct an investigation to produce data as the basis for evidence, using controlled variables.",
+   kw:["investigate","lab","experiment","plan","conduct","data","evidence","variable","control","hypothesis"]},
+  {code:"NGSS SEP-4",fw:"NGSS",fc:"#10b981",subj:"Science",
+   text:"Science & Engineering Practice 4 — Analyzing and Interpreting Data: analyze data using tools, technologies, and/or models to make valid and reliable scientific claims.",
+   kw:["analyze","data","interpret","conclude","evidence","result","finding","graph","pattern","statistic"]},
+  {code:"NGSS SEP-6",fw:"NGSS",fc:"#10b981",subj:"Science",
+   text:"Science & Engineering Practice 6 — Constructing Explanations: construct a scientific explanation based on valid and reliable evidence obtained from sources, including students' own investigations.",
+   kw:["explanation","explain","evidence","cause","mechanism","scientific","construct","reason","causal"]},
+  {code:"NGSS SEP-7",fw:"NGSS",fc:"#10b981",subj:"Science",
+   text:"Science & Engineering Practice 7 — Engaging in Argument from Evidence: evaluate competing design solutions or scientific claims using evidence, reasoning, and criteria.",
+   kw:["argument","evidence","evaluate","claim","reasoning","support","critique","justify","debate"]},
+  {code:"NGSS HS-ETS1-2",fw:"NGSS",fc:"#10b981",subj:"Science",
+   text:"Design a solution to a complex real-world problem by breaking it down into smaller, more manageable problems that can be solved through engineering.",
+   kw:["design","engineer","solution","problem","complex","real-world","technology","system","build"]},
+  {code:"NGSS HS-ESS3-4",fw:"NGSS",fc:"#10b981",subj:"Science",
+   text:"Evaluate or refine a technological solution that reduces impacts of human activities on natural systems.",
+   kw:["evaluate","technology","solution","impact","environment","human","system","refine","ecology","natural"]},
+  // ─ NCSS / C3 Framework ─────────────────────────────────────────────────────
+  {code:"C3 D1.1.9-12",fw:"NCSS C3",fc:"#f59e0b",subj:"Social Studies",
+   text:"Construct compelling questions that generate inquiry into authentic civic issues, and explain how those questions reflect key disciplinary concepts.",
+   kw:["civic","question","inquiry","democratic","citizen","government","public","political","issue"]},
+  {code:"C3 D2.His.1.9-12",fw:"NCSS C3",fc:"#f59e0b",subj:"Social Studies",
+   text:"Analyze how historical contexts shaped and were shaped by the perspectives of people at the time in order to explain the significance of historical events.",
+   kw:["history","historical","context","perspective","primary","source","analyze","past","era","period"]},
+  {code:"C3 D2.His.5.9-12",fw:"NCSS C3",fc:"#f59e0b",subj:"Social Studies",
+   text:"Explain how and why perspectives of people have changed over time across historical periods and geographic regions.",
+   kw:["perspective","change","time","evolve","history","interpret","point of view","shifting","geography"]},
+  {code:"C3 D3.1.9-12",fw:"NCSS C3",fc:"#f59e0b",subj:"Social Studies",
+   text:"Gather relevant information from multiple credible sources representing a wide range of views, using the origin, authority, structure, context, and corroborative value of the sources.",
+   kw:["source","credible","evidence","research","gather","evaluate","bias","secondary","primary","credib"]},
+  {code:"C3 D4.2.9-12",fw:"NCSS C3",fc:"#f59e0b",subj:"Social Studies",
+   text:"Construct explanations using sound reasoning, correct sequence, examples, and details; articulate the connections between the explanation and the evidence that supports it.",
+   kw:["argument","reason","explain","construct","evidence","claim","justify","write","analytic","social"]},
+  {code:"C3 D2.Civ.5.9-12",fw:"NCSS C3",fc:"#f59e0b",subj:"Social Studies",
+   text:"Evaluate citizens' and institutions' effectiveness in addressing social and political problems using democratic principles.",
+   kw:["civic","citizen","institution","social","political","evaluate","effectiveness","government","democracy","constitution"]},
+  // ─ ISTE (Student Standards) ─────────────────────────────────────────────────
+  {code:"ISTE 1.3a",fw:"ISTE",fc:"#ec4899",subj:"Computer Science",
+   text:"Knowledge Constructor — Students plan and employ effective research strategies to locate information and other resources for their intellectual or creative pursuits.",
+   kw:["research","information","search","source","strategy","find","locate","digital","library","inquir"]},
+  {code:"ISTE 1.4a",fw:"ISTE",fc:"#ec4899",subj:"Computer Science",
+   text:"Innovative Designer — Students know and use a deliberate design process for generating ideas, testing theories, creating innovative artifacts, or solving authentic problems.",
+   kw:["design","create","innovate","prototype","test","artifact","process","engineer","problem","creative"]},
+  {code:"ISTE 1.5a",fw:"ISTE",fc:"#ec4899",subj:"Computer Science",
+   text:"Computational Thinker — Students formulate problem definitions suited for technology-assisted methods such as data analysis, abstract models, and algorithmic thinking in exploration and finding solutions.",
+   kw:["algorithm","computational","decompose","problem","define","abstract","model","data","code","program"]},
+  {code:"ISTE 1.5c",fw:"ISTE",fc:"#ec4899",subj:"Computer Science",
+   text:"Computational Thinker — Students break problems into component parts, extract key information, and develop descriptive models to understand complex systems or facilitate problem-solving.",
+   kw:["decompose","algorithm","system","component","model","break","structure","procedure","module","construct"]},
+  {code:"ISTE 1.5d",fw:"ISTE",fc:"#ec4899",subj:"Computer Science",
+   text:"Computational Thinker — Students understand how automation works and use algorithmic thinking to develop a sequence of steps to create and test automated solutions.",
+   kw:["automate","algorithm","sequence","code","program","test","debug","construct","develop","procedure"]},
+  {code:"ISTE 1.6a",fw:"ISTE",fc:"#ec4899",subj:"Computer Science",
+   text:"Creative Communicator — Students choose appropriate platforms and tools for meeting the desired objectives of their creation or communication.",
+   kw:["communicate","platform","tool","digital","create","media","express","produce","audience","present"]},
+  {code:"ISTE 1.7a",fw:"ISTE",fc:"#ec4899",subj:"Computer Science",
+   text:"Global Collaborator — Students use digital tools to broaden their perspectives and enrich their learning by collaborating with others and working effectively in teams locally and globally.",
+   kw:["collaborat","digital","global","team","communicate","network","connect","partner","diverse"]},
+];
+
 function cq(a, g) {
   if (a < 0.35 && g >= 0.45) return "deepen";
   if (a >= 0.35 && g >= 0.45) return "transform";
@@ -227,6 +350,22 @@ function subj(text) {
   if (/language|culture|intercultural|multilingual|target.language/.test(l)) return "World Languages";
   if (/read|writ|text|literary|grammar|rhetoric|vocabulary|essay|argument|claim|evidence/.test(l)) return "ELA";
   return "Interdisciplinary";
+}
+
+function suggestStandards(text, subject) {
+  if (!text || text.trim().length < 10) return [];
+  const l = text.toLowerCase();
+  const scored = STANDARDS_DB.map(std => {
+    const subjBonus = std.subj === subject ? 3 : 0;
+    const kwScore = std.kw.filter(kw => l.includes(kw.toLowerCase())).length;
+    return { ...std, score: subjBonus + kwScore };
+  }).filter(s => s.score > 0).sort((a, b) => b.score - a.score);
+  if (subject === "Interdisciplinary") {
+    const seen = new Set(); const result = [];
+    for (const s of scored) { if (!seen.has(s.fw) && result.length < 5) { seen.add(s.fw); result.push(s); } }
+    return result;
+  }
+  return scored.slice(0, 5);
 }
 
 function matches(text) {
@@ -381,13 +520,17 @@ export default function App() {
   const [r, setR] = useState(null);
   const [selQ, setSelQ] = useState(null);
   const [taskOpen, setTaskOpen] = useState(false);
+  const [selectedStandard, setSelectedStandard] = useState(null);
+  const [analysisStandard, setAnalysisStandard] = useState(null);
   const ref = useRef(null);
 
   function go() {
     if (!input.trim()) return;
     setLoading(true); setR(null); setSelQ(null); setTaskOpen(false);
+    const capturedStd = selectedStandard;
     setTimeout(() => {
       setR(analyze(input));
+      setAnalysisStandard(capturedStd);
       setLoading(false);
       setTimeout(() => ref.current?.scrollIntoView({ behavior: "smooth" }), 100);
     }, 400);
@@ -419,14 +562,14 @@ export default function App() {
           AI Skill Quadrant Analyzer
         </h1>
         <p style={{ fontSize: "clamp(13px,2vw,16px)", color: "#94a3b8", maxWidth: 640, margin: "0 auto", lineHeight: 1.6, fontWeight: 300 }}>
-          Enter a learning standard → get instructional strategies, AI use/non-use guidance, a sample multi-phase task, and process-based assessment for each quadrant.
+          Enter a learning objective → select a relevant standard (CCSS, NGSS, NCSS, ISTE) → get instructional strategies, AI guidance, and a sample task for each quadrant.
         </p>
       </header>
 
       <section style={{ maxWidth: 800, margin: "0 auto", padding: "24px 24px" }}>
         <div style={{ background: "rgba(255,255,255,.025)", border: "1px solid rgba(255,255,255,.07)", borderRadius: 16, padding: 20 }}>
-          <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: "#93c5fd", marginBottom: 6, letterSpacing: ".04em", textTransform: "uppercase" }}>Paste a Learning Standard or Objective</label>
-          <textarea value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => { if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) go(); }}
+          <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: "#93c5fd", marginBottom: 6, letterSpacing: ".04em", textTransform: "uppercase" }}>Enter a Learning Objective or Task</label>
+          <textarea value={input} onChange={e => { setInput(e.target.value); setSelectedStandard(null); }} onKeyDown={e => { if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) go(); }}
             placeholder="e.g., Write arguments to support claims in an analysis of substantive topics or texts, using valid reasoning and relevant evidence."
             rows={3} style={{ width: "100%", background: "rgba(0,0,0,.3)", border: "1px solid rgba(255,255,255,.1)", borderRadius: 12, padding: "12px 14px", fontSize: 15, fontFamily: "inherit", color: "#e2e8f0", lineHeight: 1.6, resize: "vertical" }} />
           {/* Grade Band Selector */}
@@ -454,6 +597,45 @@ export default function App() {
                                        "aiEDU Domain 3 — Lead with Human Advantage"}
             </span>
           </div>
+          {/* Standards Suggestions */}
+          {input.trim().length > 10 && (() => {
+            const subs = subj(input);
+            const sugs = suggestStandards(input, subs);
+            if (!sugs.length) return null;
+            return (
+              <div style={{ marginTop: 14 }}>
+                <div style={{ fontSize: 10, fontWeight: 700, color: "#6b7280", textTransform: "uppercase", letterSpacing: ".06em", marginBottom: 7, display: "flex", alignItems: "center", gap: 6 }}>
+                  <span style={{ opacity: 0.7 }}>📎</span> Suggested Standards
+                  <span style={{ fontWeight: 400, fontStyle: "italic", textTransform: "none", letterSpacing: 0, color: "#4b5563" }}>— select one or skip</span>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                  {sugs.map((std, i) => {
+                    const sel = selectedStandard?.code === std.code;
+                    return (
+                      <button key={i} onClick={() => setSelectedStandard(sel ? null : std)}
+                        style={{ textAlign: "left", background: sel ? `${std.fc}10` : "rgba(255,255,255,.015)",
+                          border: `1px solid ${sel ? `${std.fc}45` : "rgba(255,255,255,.05)"}`,
+                          borderRadius: 8, padding: "7px 11px", cursor: "pointer", fontFamily: "inherit",
+                          transition: "all .15s", display: "flex", alignItems: "flex-start", gap: 9 }}>
+                        <span style={{ fontSize: 8, fontWeight: 800, background: `${std.fc}20`, color: std.fc,
+                          padding: "2px 6px", borderRadius: 4, whiteSpace: "nowrap", marginTop: 2, letterSpacing: ".04em", flexShrink: 0 }}>
+                          {std.fw}
+                        </span>
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          <div style={{ fontSize: 11, fontWeight: 700, color: sel ? std.fc : "#93c5fd", marginBottom: 2 }}>
+                            {std.code} {sel && <span style={{ fontWeight: 400 }}>✓ selected</span>}
+                          </div>
+                          <div style={{ fontSize: 11, color: "#94a3b8", lineHeight: 1.4 }}>
+                            {std.text.length > 105 ? std.text.slice(0, 102) + "…" : std.text}
+                          </div>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })()}
           <div style={{ display: "flex", alignItems: "center", gap: 12, marginTop: 10 }}>
             <button className="sh" onClick={go} disabled={loading || !input.trim()}
               style={{ padding: "12px 28px", borderRadius: 12, border: "none", color: "white", fontSize: 15, fontWeight: 700, cursor: loading ? "wait" : "pointer", opacity: loading || !input.trim() ? .45 : 1, fontFamily: "inherit" }}>
@@ -473,6 +655,22 @@ export default function App() {
 
       {r && (
         <section ref={ref} style={{ maxWidth: 960, margin: "0 auto", padding: "0 24px 56px" }}>
+          {/* Selected Standard Banner */}
+          {analysisStandard && (
+            <div className="fu" style={{ background: `${analysisStandard.fc}08`, border: `1px solid ${analysisStandard.fc}30`, borderRadius: 14, padding: "11px 16px", marginBottom: 12, display: "flex", alignItems: "flex-start", gap: 11 }}>
+              <span style={{ fontSize: 8, fontWeight: 800, background: `${analysisStandard.fc}22`, color: analysisStandard.fc,
+                padding: "3px 8px", borderRadius: 5, whiteSpace: "nowrap", letterSpacing: ".04em", flexShrink: 0, marginTop: 2 }}>
+                {analysisStandard.fw}
+              </span>
+              <div>
+                <div style={{ fontSize: 11, fontWeight: 700, color: analysisStandard.fc, marginBottom: 3 }}>
+                  Standard: {analysisStandard.code}
+                </div>
+                <div style={{ fontSize: 12, color: "#94a3b8", lineHeight: 1.5 }}>{analysisStandard.text}</div>
+              </div>
+            </div>
+          )}
+
           {/* Insight */}
           <div className="fu" style={{ background: "linear-gradient(135deg,rgba(59,130,246,.12),rgba(139,92,246,.12))", border: "1px solid rgba(99,102,241,.25)", borderRadius: 16, padding: "16px 22px", marginBottom: 20 }}>
             <div style={{ fontSize: 10, fontWeight: 700, color: "#a5b4fc", textTransform: "uppercase", letterSpacing: ".1em", marginBottom: 4 }}>Key Insight • {r.s}</div>
